@@ -6,4 +6,6 @@
     android:background="#0E4502"
     android:foregroundTint="#ECE8E8"
     android:layout_height="match_parent"
+    android:background="#0E4502"
+    android:foregroundTint="#ECE8E8"
     tools:context=".HostActivity" />
