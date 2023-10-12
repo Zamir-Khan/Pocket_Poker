@@ -13,7 +13,7 @@
     >
 
     <Button
-        android:id="@+id/JoinButton"
+        android:id="@+id/PlayAgainButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
