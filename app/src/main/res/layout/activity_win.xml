@@ -8,4 +8,52 @@
     android:foregroundTint="#ECE8E8"
     tools:context=".WinActivity">
 
+
+    <TextView
+        android:id="@+id/WinText"
+        android:layout_width="216dp"
+        android:layout_height="64dp"
+        android:text=" You Won!"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376" />
+
+    <ImageView
+        android:id="@+id/LogoImage"
+        android:layout_width="204dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WinText"
+        app:layout_constraintVertical_bias="0.039"
+        app:srcCompat="@drawable/cards_159600_1280" />
+
+    <Button
+        android:id="@+id/JoinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#818589"
+        android:text="Join Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WinText"
+        app:layout_constraintVertical_bias="0.346" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        tools:layout_editor_absoluteX="654dp"
+        tools:layout_editor_absoluteY="37dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
