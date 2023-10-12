@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LostActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0E4502"
@@ -21,7 +22,7 @@
         app:srcCompat="@drawable/cards_159600_1280" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/LostText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You Lost!"
@@ -38,17 +39,18 @@
         android:id="@+id/PlayAgainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
         android:backgroundTint="#818589"
         android:text="PLAY AGAIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.601" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton5"
+        android:id="@+id/ExitButton"
         android:layout_width="53dp"
         android:layout_height="58dp"
         android:clickable="true"
