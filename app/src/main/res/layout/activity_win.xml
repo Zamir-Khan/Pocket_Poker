@@ -56,4 +56,13 @@
         tools:layout_editor_absoluteX="654dp"
         tools:layout_editor_absoluteY="37dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        tools:layout_editor_absoluteX="323dp"
+        tools:layout_editor_absoluteY="42dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
