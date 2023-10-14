@@ -9,6 +9,20 @@
     tools:context=".WinActivity">
 
 
+    <TextView
+        android:id="@+id/WinText"
+        android:layout_width="144dp"
+        android:layout_height="56dp"
+        android:text=" You Won!"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
     <ImageView
         android:id="@+id/LogoImage"
         android:layout_width="204dp"
@@ -17,23 +31,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WinText"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@+id/WinText"
+        app:layout_constraintVertical_bias="0.145"
         app:srcCompat="@drawable/cards_159600_1280" />
-
-    <TextView
-        android:id="@+id/WinText"
-        android:layout_width="216dp"
-        android:layout_height="64dp"
-        android:text=" You Won!"
-        android:textColor="@color/white"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34" />
 
     <Button
         android:id="@+id/PlayAgainButton"
@@ -43,9 +43,10 @@
         android:text="Play AGAIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/WinText"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.262" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ExitButton"
