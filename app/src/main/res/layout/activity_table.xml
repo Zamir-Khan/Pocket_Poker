@@ -100,4 +100,12 @@
         tools:layout_editor_absoluteX="658dp"
         tools:layout_editor_absoluteY="229dp" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="43dp"
+        android:layout_height="118dp"
+        app:srcCompat="@drawable/mathclipart__playing_card__the_4_of_hearts"
+        tools:layout_editor_absoluteX="335dp"
+        tools:layout_editor_absoluteY="268dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
