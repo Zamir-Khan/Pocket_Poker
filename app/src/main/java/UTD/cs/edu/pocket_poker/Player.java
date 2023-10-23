@@ -25,6 +25,11 @@ public class Player {
     public void placeBet(int bet){
         currentBet = bet;
     }
+
+    public List<Card> getHand() {
+        return hand;
+    }
+
     // End
     // ************************************
 }

@@ -20,10 +20,10 @@
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fold"
         android:backgroundTint="#D30000"
-        tools:layout_editor_absoluteX="463dp"
-        tools:layout_editor_absoluteY="366dp" />
+        android:text="Fold"
+        tools:layout_editor_absoluteX="444dp"
+        tools:layout_editor_absoluteY="348dp" />
 
     <Button
         android:id="@+id/button5"
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#818589"
         android:text="Raise"
-        tools:layout_editor_absoluteX="551dp"
-        tools:layout_editor_absoluteY="366dp" />
+        tools:layout_editor_absoluteX="540dp"
+        tools:layout_editor_absoluteY="347dp" />
 
     <Button
         android:id="@+id/button4"
@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#818589"
         android:text="Call"
-        tools:layout_editor_absoluteX="639dp"
-        tools:layout_editor_absoluteY="366dp" />
+        tools:layout_editor_absoluteX="637dp"
+        tools:layout_editor_absoluteY="347dp" />
 
     <ImageView
         android:id="@+id/imageView"
