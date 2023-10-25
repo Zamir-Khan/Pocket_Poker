@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Pocket_Poker</string>
+    <string name="players_in_network">Players in Network</string>
+    <string name="invite_players">Invite Players</string>
+    <string name="discover">Discover</string>
+    <string name="wifi_on">Wifi On</string>
+    <string name="message">Message</string>
+    <string name="start_game">START GAME</string>
+    <string name="send">Send</string>
+    <string name="connection_status">Connection Status</string>
+    <string name="this_is_the_exit_button_that_looks_like_an_x">This is the exit button that looks like an X</string>
+    <string name="todo">TODO</string>
 </resources>
