@@ -1,10 +1,14 @@
 package UTD.cs.edu.pocket_poker;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.util.Log;
 import android.widget.Toast;
 
 public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
@@ -35,11 +39,15 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
 
         } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
-            //do something
+            if(mManager!=null)
+            {
+                mManager.requestPeers(mChannel, mActivity.peerListListener);
+            }
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             //do something
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             //do something
+
         }
 
 
