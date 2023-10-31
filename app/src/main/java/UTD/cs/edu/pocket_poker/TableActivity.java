@@ -34,6 +34,10 @@ public class TableActivity extends AppCompatActivity {
         TextView P1Hand = findViewById(R.id.P1Hand);    // Display player 1 hand
         TextView P2Hand = findViewById(R.id.P2Hand);    // Display player 2 hand
         TextView test = findViewById(R.id.Test);
+        TextView P1Name = findViewById(R.id.PlayerName1);
+        TextView P2Name = findViewById(R.id.PlayerName2);
+        P1Name.setText(player1.getName());
+        P2Name.setText(player2.getName());
 
         ImageView p1c1 = findViewById(R.id.p1card1);
         ImageView p1c2 = findViewById(R.id.p1card2);
