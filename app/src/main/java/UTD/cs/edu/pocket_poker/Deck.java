@@ -13,8 +13,8 @@ public class Deck {
     // Constructor
     public Deck(){
         cards = new ArrayList<>();
-        for (String suit : new String[]{"Hearts", "Diamonds", "Clubs", "Spades"}){
-            for (String rank : new String[]{"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"}) {
+        for (String suit : new String[]{"hearts", "diamonds", "clubs", "spades"}){
+            for (String rank : new String[]{"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"}) {
                 cards.add(new Card(rank, suit));
             }
         }
