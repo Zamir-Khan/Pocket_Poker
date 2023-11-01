@@ -1,6 +1,5 @@
 package UTD.cs.edu.pocket_poker;
 
-
 import static android.content.ContentValues.TAG;
 
 import android.content.BroadcastReceiver;
@@ -22,8 +21,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -111,30 +108,30 @@ public class HostActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                final WifiP2pDevice device = deviceArray[i];
-                WifiP2pConfig config = new WifiP2pConfig();
-                config.deviceAddress = device.deviceAddress;
+            final WifiP2pDevice device = deviceArray[i];
+            WifiP2pConfig config = new WifiP2pConfig();
+            config.deviceAddress = device.deviceAddress;
 
 
-                mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "Conencted to" + device.deviceName, Toast.LENGTH_SHORT).show();
-                    }
+            mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(getApplicationContext(), "Conencted to" + device.deviceName, Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void onFailure(int i) {
+                @Override
+                public void onFailure(int i) {
                         Toast.makeText(getApplicationContext(),"Not connected", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
 
 
 
@@ -189,11 +186,11 @@ public class HostActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, deviceNameArray);
                 listView.setAdapter(adapter);
             }
-            if(peers.size()== 0)
-            {
-                Toast.makeText(getApplicationContext(), "No Device Found", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if(peers.size()== 0)
+                {
+                    Toast.makeText(getApplicationContext(), "No Device Found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
         }
@@ -231,3 +228,13 @@ public class HostActivity extends AppCompatActivity {
 
 
 
+
+
+       /*
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, HostFragment.newInstance())
+                    .commitNow();
+        }
+
+        */
