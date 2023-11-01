@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="UTD.cs.edu.pocket_poker">
     <!-- If your app targets Android 13 (API level 33)
              or higher, you must declare the NEARBY_WIFI_DEVICES permission. -->
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
