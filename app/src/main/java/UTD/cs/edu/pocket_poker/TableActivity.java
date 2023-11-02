@@ -61,34 +61,51 @@ public class TableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (count < 5){                         // Checking if dealing card is valid
-                    Card dealtCard = deck.dealCard();
-                    player1.addCard(dealtCard);         // Adding card to Players hand
+                    Card dealtCard1 = deck.dealCard();
+                    Card dealtCard2 = deck.dealCard();
+                    
+                    player1.addCard(dealtCard1);        // Adding card to Player1 hand
+                    player2.addCard(dealtCard2);        // Adding card to Player2 hand
 
-                    test.setText(dealtCard.toString());
-                    String cardname = dealtCard.toString();
-                    int resourceID = getResources().getIdentifier(cardname, "drawable", getPackageName());
+                    test.setText(dealtCard1.toString());
+                    
+                    String cardname1 = dealtCard1.toString();
+                    int resourceID1 = getResources().getIdentifier(cardname1, "drawable", getPackageName());
 
-                    if(resourceID !=0){
+                    String cardname2 = dealtCard2.toString();
+                    int resourceID2 = getResources().getIdentifier(cardname2, "drawable", getPackageName());
+
+                    if(resourceID1 !=0 && resourceID2 != 0){
                         switch (count){
                             case 0:
-                                P1card[0] = getResources().getDrawable(resourceID);
+                                P1card[0] = getResources().getDrawable(resourceID1);
+                                P2card[0] = getResources().getDrawable(resourceID2);
                                 p1c1.setImageDrawable(P1card[0]);
+                                p2c1.setImageDrawable(P2card[0]);
                                 break;
                             case 1:
-                                P1card[1] = getResources().getDrawable(resourceID);
+                                P1card[1] = getResources().getDrawable(resourceID1);
+                                P2card[1] = getResources().getDrawable(resourceID2);
                                 p1c2.setImageDrawable(P1card[1]);
+                                p2c2.setImageDrawable(P2card[1]);
                                 break;
                             case 2:
-                                P1card[2] = getResources().getDrawable(resourceID);
+                                P1card[2] = getResources().getDrawable(resourceID1);
+                                P2card[2] = getResources().getDrawable(resourceID2);
                                 p1c3.setImageDrawable(P1card[2]);
+                                p2c3.setImageDrawable(P2card[2]);
                                 break;
                             case 3:
-                                P1card[3] = getResources().getDrawable(resourceID);
+                                P1card[3] = getResources().getDrawable(resourceID1);
+                                P2card[3] = getResources().getDrawable(resourceID2);
                                 p1c4.setImageDrawable(P1card[3]);
+                                p2c4.setImageDrawable(P2card[3]);
                                 break;
                             case 4:
-                                P1card[4] = getResources().getDrawable(resourceID);
+                                P1card[4] = getResources().getDrawable(resourceID1);
+                                P2card[4] = getResources().getDrawable(resourceID2);
                                 p1c5.setImageDrawable(P1card[4]);
+                                p2c5.setImageDrawable(P2card[4]);
                                 break;
                         }
                     }
@@ -99,54 +116,15 @@ public class TableActivity extends AppCompatActivity {
 
                 }
                 P1Hand.setText(player1.toString());     // Displaying Player hand
-
+                P2Hand.setText(player2.toString());
             }
         });
 
         // **** Action for Raise button
         // (currently serving as debugger for Player 2)
         raiseButton.setOnClickListener(new View.OnClickListener() {
-            int count = 0;
             @Override
             public void onClick(View view) {
-                if (count < 5){
-                    Card dealtCard = deck.dealCard();
-                    player2.addCard(dealtCard);         // Adding card to Players hand
-
-                    test.setText(dealtCard.toString());
-                    String cardname = dealtCard.toString();
-                    int resourceID = getResources().getIdentifier(cardname, "drawable", getPackageName());
-
-                    if(resourceID !=0){
-                        switch (count){
-                            case 0:
-                                P2card[0] = getResources().getDrawable(resourceID);
-                                p2c1.setImageDrawable(P2card[0]);
-                                break;
-                            case 1:
-                                P2card[1] = getResources().getDrawable(resourceID);
-                                p2c2.setImageDrawable(P2card[1]);
-                                break;
-                            case 2:
-                                P2card[2] = getResources().getDrawable(resourceID);
-                                p2c3.setImageDrawable(P2card[2]);
-                                break;
-                            case 3:
-                                P2card[3] = getResources().getDrawable(resourceID);
-                                p2c4.setImageDrawable(P2card[3]);
-                                break;
-                            case 4:
-                                P2card[4] = getResources().getDrawable(resourceID);
-                                p2c5.setImageDrawable(P2card[4]);
-                                break;
-                        }
-                    }
-                    else{
-                        test.setText("drawable not found!");
-                    }
-                    count++;
-                }
-                P2Hand.setText(player2.toString());
             }
         });
 
@@ -163,6 +141,12 @@ public class TableActivity extends AppCompatActivity {
                 p1c3.setImageDrawable(getDrawable(R.drawable.card_back));
                 p1c4.setImageDrawable(getDrawable(R.drawable.card_back));
                 p1c5.setImageDrawable(getDrawable(R.drawable.card_back));
+
+                p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                p2c2.setImageDrawable(getDrawable(R.drawable.card_back));
+                p2c3.setImageDrawable(getDrawable(R.drawable.card_back));
+                p2c4.setImageDrawable(getDrawable(R.drawable.card_back));
+                p2c5.setImageDrawable(getDrawable(R.drawable.card_back));
             }
         });
     }
