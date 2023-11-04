@@ -8,29 +8,19 @@
     android:foregroundTint="#0E4502"
     tools:context="UTD.cs.edu.pocket_poker.TableActivity">
 
+
     <Button
         android:id="@+id/raiseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="9dp"
         android:backgroundTint="#818589"
         android:text="Raise"
-        app:layout_constraintBaseline_toBaselineOf="@+id/foldBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.834"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/callBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#818589"
-        android:text="Call"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="@+id/raiseBtn" />
+        app:layout_constraintHorizontal_bias="0.987"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/foldBtn"
@@ -41,11 +31,22 @@
         android:text="Fold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintTop_toTopOf="@+id/raiseBtn"
+        app:layout_constraintVertical_bias="0.298" />
 
+    <Button
+        android:id="@+id/callBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="#818589"
+        android:text="Call"
+        app:layout_constraintBottom_toBottomOf="@+id/raiseBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/raiseBtn" />
 
     <TextView
         android:id="@+id/P1Hand"
@@ -84,7 +85,7 @@
         android:id="@+id/p1card2"
         android:layout_width="53dp"
         android:layout_height="79dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/p1card1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +94,7 @@
         android:id="@+id/p1card3"
         android:layout_width="53dp"
         android:layout_height="79dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/p1card2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +103,7 @@
         android:id="@+id/p1card4"
         android:layout_width="53dp"
         android:layout_height="79dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/p1card3"
         app:layout_constraintTop_toTopOf="parent" />
@@ -111,10 +112,11 @@
         android:id="@+id/p1card5"
         android:layout_width="53dp"
         android:layout_height="79dp"
-        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/p1card4"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/p1card1"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/PlayerName1"
@@ -182,7 +184,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.676" />

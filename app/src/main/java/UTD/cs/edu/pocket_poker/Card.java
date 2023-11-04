@@ -6,11 +6,14 @@ public class Card {
     // 10/9/23
     private String rank;
     private String suit;
+    private int rank_point;
 
     // Constructor
-    public Card(String rank, String suit){
+    public Card(String rank, String suit, int rank_point){
         this.rank = rank;
         this.suit = suit;
+        this.rank_point = rank_point;
+
     }
 
     // Getter methods
@@ -20,6 +23,7 @@ public class Card {
     public String getSuit(){
         return suit;
     }
+    public int getPoint(){return rank_point;}
 
     @Override
     public String toString() {

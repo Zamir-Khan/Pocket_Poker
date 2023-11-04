@@ -14,8 +14,10 @@ public class Deck {
     public Deck(){
         cards = new ArrayList<>();
         for (String suit : new String[]{"hearts", "diamonds", "clubs", "spades"}){
+            int i = 1;
             for (String rank : new String[]{"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"}) {
-                cards.add(new Card(rank, suit));
+                cards.add(new Card(rank, suit, i));
+                i++;
             }
         }
     }
