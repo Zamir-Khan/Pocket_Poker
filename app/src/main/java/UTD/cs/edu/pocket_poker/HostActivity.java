@@ -13,6 +13,9 @@ import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,11 +28,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
-import UTD.cs.edu.pocket_poker.R;
 
 public class HostActivity extends AppCompatActivity {
 
@@ -51,15 +58,44 @@ public class HostActivity extends AppCompatActivity {
     String[] deviceNameArray;
     WifiP2pDevice[] deviceArray;
 
+    static final int MESSAGE_READ = 1;
+
+    ServerClass serverClass;
+
+    ClientClass clientClass;
+
+    Sendrecieve sendrecieve;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* block is to check */
+
+        StrictMode.ThreadPolicy policy;
+        policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
         initialWork();
         exqListener();
     }
 
-
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch(msg.what)
+            {
+                case MESSAGE_READ:
+                    byte[] readBuff= (byte[]) msg.obj;
+                    String tempMsg = new String (readBuff, 0, msg.arg1);
+                    read_msg_box.setText(tempMsg);
+                    break;
+            }
+            return true;
+        }
+    });
 
     /*
     This works only somewhat, does not work on phone emulator but does work on my mobile device
@@ -125,7 +161,7 @@ public class HostActivity extends AppCompatActivity {
                 mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "Conencted to" + device.deviceName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Connected to" + device.deviceName, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -137,6 +173,14 @@ public class HostActivity extends AppCompatActivity {
         });
 
 
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String msg = writeMsg.getText().toString();
+                sendrecieve.write(msg.getBytes());
+
+            }
+        });
 
     }
 
@@ -209,9 +253,13 @@ public class HostActivity extends AppCompatActivity {
             if (wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner)
             {
                 connectionStatus.setText("Host");
+                serverClass = new ServerClass();
+                serverClass.start();
             }else if (wifiP2pInfo.groupFormed)
             {
                 connectionStatus.setText("Client");
+                clientClass = new ClientClass(groupOwnerAddress);
+                clientClass.start();
             }
         }
     };
@@ -226,6 +274,99 @@ public class HostActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mReceiver);
+    }
+
+
+
+    public class ServerClass extends  Thread{
+        Socket socket;
+        ServerSocket serverSocket;
+
+        @Override
+        public void run() {
+            try {
+                serverSocket = new ServerSocket(8888);
+                socket = serverSocket.accept();
+                sendrecieve =  new Sendrecieve(socket);
+                sendrecieve.start();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+    private class Sendrecieve extends  Thread{
+
+        //these were quick fixes, originally did not have "final" on them
+        private final Socket  socket;
+        private final InputStream inputStream;
+        private final OutputStream outputStream;
+
+
+        public Sendrecieve(Socket skt)
+        {
+            socket=skt ;
+            try {
+                inputStream = socket.getInputStream();
+                outputStream = socket.getOutputStream();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        public void run() {
+            byte [] buffer = new byte[1024];
+            int bytes ;
+
+            while (socket != null)
+            {
+                try {
+                    bytes  = inputStream.read(buffer);
+                    if (bytes > 0 )
+                    {
+                        handler.obtainMessage(MESSAGE_READ, bytes, -1 , buffer).sendToTarget();
+
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        public void write (byte [] bytes )
+        {
+            try {
+                outputStream.write(bytes);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public class ClientClass extends Thread{
+        Socket socket;
+        String hostAdd;
+
+
+
+        public ClientClass (InetAddress hostAddress)
+        {
+            hostAdd = hostAddress.getHostAddress();
+            socket = new Socket();
+
+        }
+        @Override
+        public void run() {
+            try {
+                socket.connect(new InetSocketAddress(hostAdd, 8888), 500);
+                //code here later
+                sendrecieve = new Sendrecieve(socket);
+                sendrecieve.start();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
 
