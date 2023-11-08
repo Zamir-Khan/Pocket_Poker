@@ -9,9 +9,11 @@ public class Player {
     // 10/9/23
     private List<Card> hand;
     private int currentBet;
+    private String name;
 
     // Constructor
-    public Player(){
+    public Player(String n){
+        name = n;
         hand = new ArrayList<>();
         currentBet = 0;
     }
@@ -26,8 +28,26 @@ public class Player {
         currentBet = bet;
     }
 
+    // Get player Hand
     public List<Card> getHand() {
         return hand;
+    }
+    public String getName(){ return name;}
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        //stringBuilder.append(name + " Hand: \n");
+
+        for (Card card : hand) {
+            stringBuilder.append(card.getRank()).append("_").append(card.getSuit()).append("\n");
+        }
+
+        // Remove the trailing ", "
+        //if (stringBuilder.length() > 0) {
+        //    stringBuilder.setLength(stringBuilder.length() - 2);
+        //}
+
+        return stringBuilder.toString();
     }
 
     // End

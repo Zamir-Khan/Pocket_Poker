@@ -12,22 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pocket_Poker"
         tools:targetApi="31">
-
+        <activity
+            android:name="UTD.cs.edu.pocket_poker.HowToPlayActivity"
+            android:exported="true" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.LostActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.WinActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.TableActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.JoinActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.HostActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.MainActivity"
             android:exported="true"
