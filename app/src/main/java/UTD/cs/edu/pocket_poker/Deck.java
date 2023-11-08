@@ -13,9 +13,11 @@ public class Deck {
     // Constructor
     public Deck(){
         cards = new ArrayList<>();
-        for (String suit : new String[]{"Hearts", "Diamonds", "Clubs", "Spades"}){
-            for (String rank : new String[]{"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"}) {
-                cards.add(new Card(rank, suit));
+        for (String suit : new String[]{"hearts", "diamonds", "clubs", "spades"}){
+            int i = 1;
+            for (String rank : new String[]{"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"}) {
+                cards.add(new Card(rank, suit, i));
+                i++;
             }
         }
     }

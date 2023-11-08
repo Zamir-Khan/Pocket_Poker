@@ -70,6 +70,7 @@ public class HostActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         /* block is to check */
 
         StrictMode.ThreadPolicy policy;
@@ -360,7 +361,7 @@ public class HostActivity extends AppCompatActivity {
         public void run() {
             try {
                 socket.connect(new InetSocketAddress(hostAdd, 8888), 500);
-                //code here later
+
                 sendrecieve = new Sendrecieve(socket);
                 sendrecieve.start();
             } catch (IOException e) {

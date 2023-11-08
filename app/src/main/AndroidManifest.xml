@@ -65,7 +65,8 @@
             android:exported="false" />
         <activity
             android:name=".TableActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".JoinActivity"
             android:exported="false" />
