@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#0E4502"
     android:foregroundTint="#ECE8E8"
-    tools:context=".WinActivity">
+    tools:context="UTD.cs.edu.pocket_poker.WinActivity">
 
 
     <TextView
@@ -48,17 +48,15 @@
         app:layout_constraintTop_toBottomOf="@+id/WinText"
         app:layout_constraintVertical_bias="0.262" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/ExitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginBottom="67dp"
+        android:backgroundTint="#818589"
+        android:text="Exit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

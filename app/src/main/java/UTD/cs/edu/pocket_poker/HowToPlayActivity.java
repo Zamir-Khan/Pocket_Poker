@@ -9,23 +9,22 @@ import android.widget.Button;
 
 import utd.cs.edu.pokect_poker.R;
 
-public class WinActivity extends AppCompatActivity {
+public class HowToPlayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_win);
+        setContentView(R.layout.activity_how_to_play);
 
-        Button PlayAgainButton;
+        Button acknowledgeButton = findViewById(R.id.iAcknowledgeButton);
 
-        PlayAgainButton = findViewById(R.id.PlayAgainButton);
+        acknowledgeButton.setOnClickListener(new View.OnClickListener() {
 
-        PlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iPlayAgainNext;
 
-                iPlayAgainNext = new Intent(WinActivity.this, MainActivity.class);
+                iPlayAgainNext = new Intent(HowToPlayActivity.this, HostActivity.class);
                 startActivity(iPlayAgainNext);
             }
         });
@@ -35,10 +34,10 @@ public class WinActivity extends AppCompatActivity {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish(); // This will exit the app
             }
 
         });
-
     }
 }
