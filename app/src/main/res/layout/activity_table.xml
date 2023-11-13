@@ -40,7 +40,7 @@
         android:id="@+id/callBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="48dp"
         android:backgroundTint="#818589"
         android:text="Call"
         app:layout_constraintBottom_toBottomOf="@+id/raiseBtn"

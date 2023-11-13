@@ -70,6 +70,9 @@ public class TableActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (round < 5) {
 
+                    // Shuffle between each round
+                    deck.shuffle();
+
                     Card dealtCard1 = deck.dealCard();
                     Card dealtCard2 = deck.dealCard();
 
@@ -181,6 +184,11 @@ public class TableActivity extends AppCompatActivity {
         foldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                for (int i=0; i<players.size();i++){
+                    players.remove(i);
+                }
+
                 P1Hand.setText("");
                 P2Hand.setText("");
                 test.setText("Fold Action");
