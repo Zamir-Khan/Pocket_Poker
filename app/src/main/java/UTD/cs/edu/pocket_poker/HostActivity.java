@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -79,6 +80,31 @@ public class HostActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
+
+        /* Shafaq and Sidra */
+        Button HostStartButton;
+        HostStartButton = findViewById(R.id.HostStartButton);
+        HostStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iPlayAgainNext;
+
+                iPlayAgainNext = new Intent(HostActivity.this, TableActivity.class);
+                startActivity(iPlayAgainNext);
+            }
+        });
+
+        Button exitButton = findViewById(R.id.HostExitButton);
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish(); // This will exit the app
+            }
+
+        });
+
+
         initialWork();
         exqListener();
     }

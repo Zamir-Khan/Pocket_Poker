@@ -26,28 +26,14 @@
         android:id="@+id/LogoImage"
         android:layout_width="204dp"
         android:layout_height="52dp"
+        android:contentDescription="@string/this_is_the_exit_button_that_looks_like_an_x"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.142"
-        app:srcCompat="@drawable/cards_159600_1280"
-        android:contentDescription="@string/this_is_the_exit_button_that_looks_like_an_x" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ExitButton"
-        android:layout_width="53dp"
-        android:layout_height="58dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/cards_159600_1280" />
 
 
     <!-- "Wifi on" button for on an off -->
@@ -55,6 +41,17 @@
     <!-- "Discover" button, could be later changed to "find other players" -->
 
     <!-- "ListView" button, it is a scrollable area to hopefully see everyone that is online -->
+
+    <Button
+        android:id="@+id/HostExitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="33dp"
+        android:backgroundTint="#818589"
+        android:text="Go Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/peerListView"

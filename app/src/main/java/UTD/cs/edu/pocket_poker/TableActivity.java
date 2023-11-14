@@ -1,7 +1,5 @@
 package UTD.cs.edu.pocket_poker;
 
-import static UTD.cs.edu.pocket_poker.R.id.callBtn;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +32,7 @@ public class TableActivity extends AppCompatActivity {
         // ****************************************************
 
         // **** View instances to manipulate gameplay
-        Button callButton = findViewById(callBtn);
+        Button callButton = findViewById(R.id.callBtn);
         Button raiseButton = findViewById(R.id.raiseBtn);
         Button foldButton = findViewById(R.id.foldBtn);
 

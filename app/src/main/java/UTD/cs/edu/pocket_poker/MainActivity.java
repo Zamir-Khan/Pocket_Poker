@@ -1,9 +1,6 @@
 package UTD.cs.edu.pocket_poker;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button joinDebug = findViewById(R.id.JoinButton);
+        /*Button joinDebug = findViewById(R.id.JoinButton);
         joinDebug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+         */
     }
+
+
 
 
 }
