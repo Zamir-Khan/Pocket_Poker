@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
+    <!--
+         If your app targets Android 13 (API level 33)
+             or higher, you must declare the NEARBY_WIFI_DEVICES permission.
+    -->
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" /> <!-- android:usesPermissionFlags="neverForLocation" /> -->
+    <!--
+ If your app derives location information from Wi-Fi APIs,
+         don't include the "usesPermissionFlags" attribute.
+    -->
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:required="true" />
+    <!--
+ If any feature in your app relies on precise location information,
+         don't include the "maxSdkVersion" attribute.
+    -->
+    <!-- android:maxSdkVersion="32" /> -->
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.CHANGE_NETWORK_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -11,27 +46,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pocket_Poker"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+
+        <activity
+            android:name="UTD.cs.edu.pocket_poker.InstructionsActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="UTD.cs.edu.pocket_poker.LostActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.WinActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.TableActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.JoinActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.HostActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name="UTD.cs.edu.pocket_poker.MainActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
