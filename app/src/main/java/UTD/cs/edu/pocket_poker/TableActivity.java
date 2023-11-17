@@ -16,7 +16,7 @@ import java.util.List;
 import utd.cs.edu.pokect_poker.R;
 
 public class TableActivity extends AppCompatActivity {
-    static int c = 0;
+    boolean condition = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,25 +138,13 @@ public class TableActivity extends AppCompatActivity {
 
                     P1Hand.setText(players.get(0).toString());     // Displaying Player hand
                     P2Hand.setText(players.get(1).toString());
-
-                    /*List<Player> winners = getWinner(players);
-                    StringBuilder strBuild = new StringBuilder("Winners: \n");
-                    for (int i = 0; i < winners.size(); i++) {
-                        strBuild.append(winners.get(i).getName())
-                                .append(", Hand: ")
-                                .append(getRankNames(getResult(winners.get(i))))
-                                .append("\n");
-                    }
-                    test.setText(strBuild.toString());*/
-                    if (round != 4){
-                        int turn = playerTurn(players, round);
-                        test.setText("Turn for: " + players.get(turn).getName());
-                    }
-                    else{
-                        c = 1;
-                    }
+                    //int turn = playerTurn(players, round);
+                    test.setText("Turn for: " + players.get(playerTurn(players, round)).getName());
                     round ++;
                 }
+                else
+                    condition = true;
+
             }
         });
 
@@ -166,7 +154,7 @@ public class TableActivity extends AppCompatActivity {
         raiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(c==1){
+                if(condition){
                     List<Player> winners = getWinner(players);
                     StringBuilder strBuild = new StringBuilder("Winners: \n");
                     for (int i = 0; i < winners.size(); i++) {

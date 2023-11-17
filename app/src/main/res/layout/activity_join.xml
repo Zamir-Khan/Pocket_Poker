@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#0E4502"
     android:foregroundTint="#ECE8E8"
-    tools:context=".JoinActivity">
+    tools:context="UTD.cs.edu.pocket_poker.JoinActivity">
 
     <TextView
         android:id="@+id/GameTitle"
