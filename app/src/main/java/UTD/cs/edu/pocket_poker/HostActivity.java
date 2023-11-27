@@ -308,7 +308,7 @@ public class HostActivity extends AppCompatActivity {
     public class ServerClass extends  Thread{
         Socket socket;
         ServerSocket serverSocket;
-
+    
         @Override
         public void run() {
             try {
