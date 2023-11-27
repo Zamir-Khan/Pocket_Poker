@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/InstructionsActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0E4502"
+    android:foregroundTint="#ECE8E8"
+    tools:context="UTD.cs.edu.pocket_poker.InstructionsActivity">
+
+    <ImageView
+        android:id="@+id/LogoImage"
+        android:layout_width="204dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HowToPlayText"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/cards_159600_1280" />
+
+    <TextView
+        android:id="@+id/HowToPlayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How To Play"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100" />
+
+    <TextView
+        android:id="@+id/Rule1Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="136dp"
+        android:text="1. One of the players will host the game"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Rule2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2. We'll follow basic Stud Poker Rules"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/Rule1Text"
+        app:layout_constraintTop_toBottomOf="@+id/Rule1Text" />
+
+    <TextView
+        android:id="@+id/Rule3Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3. Player with highest ranking poker hand will win"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/Rule2Text"
+        app:layout_constraintTop_toBottomOf="@+id/Rule2Text" />
+
+    <TextView
+        android:id="@+id/Rule4Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4. If both players have same hands, then it's a tie"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/Rule3Text"
+        app:layout_constraintTop_toBottomOf="@+id/Rule3Text" />
+
+    <TextView
+        android:id="@+id/Rule5Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5. Enjoy the Game!"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/Rule4Text"
+        app:layout_constraintTop_toBottomOf="@+id/Rule4Text" />
+
+    <Button
+        android:id="@+id/iAcknowledgeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="540dp"
+        android:layout_marginTop="248dp"
+        android:backgroundTint="#818589"
+        android:text="I Acknowledge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ExitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:backgroundTint="#818589"
+        android:text="Exit"
+        app:layout_constraintBottom_toBottomOf="@+id/iAcknowledgeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iAcknowledgeButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import utd.cs.edu.pokect_poker.R;
+
 public class JoinActivity extends AppCompatActivity {
 
     @Override

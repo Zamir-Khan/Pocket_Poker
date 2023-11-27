@@ -40,7 +40,7 @@
         android:id="@+id/callBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="48dp"
         android:backgroundTint="#818589"
         android:text="Call"
         app:layout_constraintBottom_toBottomOf="@+id/raiseBtn"
@@ -199,17 +199,6 @@
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/ExitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="22dp"
-        android:backgroundTint="#818589"
-        android:text="Exit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PlayerName1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

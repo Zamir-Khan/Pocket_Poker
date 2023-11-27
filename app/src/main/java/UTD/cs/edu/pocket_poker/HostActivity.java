@@ -3,10 +3,12 @@ package UTD.cs.edu.pocket_poker;
 
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +41,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import utd.cs.edu.pokect_poker.R;
 
 public class HostActivity extends AppCompatActivity {
 
@@ -55,7 +60,7 @@ public class HostActivity extends AppCompatActivity {
     IntentFilter mIntentFiler;
 
 
-    List<WifiP2pDevice> peers=new ArrayList<WifiP2pDevice>();
+    List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     String[] deviceNameArray;
     WifiP2pDevice[] deviceArray;
 
@@ -66,7 +71,6 @@ public class HostActivity extends AppCompatActivity {
     ClientClass clientClass;
 
     Sendrecieve sendrecieve;
-
 
 
     @Override
@@ -112,11 +116,10 @@ public class HostActivity extends AppCompatActivity {
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            switch(msg.what)
-            {
+            switch (msg.what) {
                 case MESSAGE_READ:
-                    byte[] readBuff= (byte[]) msg.obj;
-                    String tempMsg = new String (readBuff, 0, msg.arg1);
+                    byte[] readBuff = (byte[]) msg.obj;
+                    String tempMsg = new String(readBuff, 0, msg.arg1);
                     read_msg_box.setText(tempMsg);
                     break;
             }
@@ -153,14 +156,12 @@ public class HostActivity extends AppCompatActivity {
         });
 
 
-
         btnDiscover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
                     @Override
-                    public void onSuccess()
-                    {
+                    public void onSuccess() {
                         connectionStatus.setText("Discover Mode Started");
                     }
 
@@ -184,7 +185,6 @@ public class HostActivity extends AppCompatActivity {
                 WifiP2pConfig config = new WifiP2pConfig();
                 config.deviceAddress = device.deviceAddress;
 
-
                 mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
@@ -193,7 +193,7 @@ public class HostActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int i) {
-                        Toast.makeText(getApplicationContext(),"Not connected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Not connected", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -308,7 +308,7 @@ public class HostActivity extends AppCompatActivity {
     public class ServerClass extends  Thread{
         Socket socket;
         ServerSocket serverSocket;
-    
+
         @Override
         public void run() {
             try {
@@ -396,6 +396,5 @@ public class HostActivity extends AppCompatActivity {
         }
     }
 }
-
 
 
