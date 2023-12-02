@@ -1,30 +1,88 @@
 package UTD.cs.edu.pocket_poker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+import android.net.wifi.p2p.WifiP2pConfig;
+import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pDeviceList;
+import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pManager.Channel;
+import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
+import android.widget.Toast;
+
+
 import utd.cs.edu.pokect_poker.R;
 
 public class TableActivity extends AppCompatActivity {
+    private void sendStartGameSignal() {
+        // You need to implement the logic to send a signal to the connected peer.
+        // This can be done using the established connection.
+        // For simplicity, you can use a placeholder method or class to represent the communication.
+        // Replace the following line with actual code for sending a signal.
+        CommunicationManager.sendSignalToStartGame();
+    }
     boolean condition = false;
+
+    private WifiP2pManager wifiP2pManager;
+    private Channel channel;
+    private PeerListListener peerListListener;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
 
+
+        wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+
+        if (wifiP2pManager == null) {
+            // Wi-Fi P2P is not supported on this device.
+            // You can show a message to the user or take appropriate action.
+            Toast.makeText(this, "Wi-Fi Direct is not supported on this device", Toast.LENGTH_SHORT).show();
+            finish();  // Close the activity or take appropriate action
+        } else {
+            channel = wifiP2pManager.initialize(this, getMainLooper(), null);
+            // Continue with the rest of your initialization
+            startDiscovery();
+        }
+
+
+        //channel = wifiP2pManager.initialize(this, getMainLooper(), null);
+
+        // Initialize peer list listener
+        peerListListener = new PeerListListener() {
+            @Override
+            public void onPeersAvailable(WifiP2pDeviceList peers) {
+                // Handle available peers
+                // Update your UI or perform actions based on available peers
+            }
+        };
+
         // **** Creating necessary class instances for gameplay
         Deck deck = new Deck();
         deck.shuffle();
+
+
 
         List<Player> players = new ArrayList<>();
         for(int i = 1; i < 3; i++){
@@ -194,102 +252,171 @@ public class TableActivity extends AppCompatActivity {
                 p2c5.setImageDrawable(getDrawable(R.drawable.card_back));
             }
         });
+
+        startDiscovery();
     }
 
-/*
-    // **************** SINGLE ROUND LOGICS ********************************
-    public static List<Player> settleBet(List<Player> players, int turn){
+    private void registerReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
-        Scanner scnr = new Scanner(System.in);
-        String[] str = new String[players.size()];
-
-        System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-        str[turn] = scnr.next();
-
-        if(str[turn].equals("fold")){
-            players.remove(turn);
-        }
-
-        else if(str[turn].equals("call")){
-            if(turn == 1){turn = 0;}
-            else{turn = 1;}
-            System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-            str[turn] = scnr.next();
-            if(str[turn].equals("fold")){
-                players.remove(turn);
-            }
-            else if(str[turn].equals("raise")){
-                if(turn == 1){turn = 0;}
-                else{turn = 1;}
-                System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                str[turn] = scnr.next();
-                if(str[turn].equals("fold")){
-                    players.remove(turn);
-                }
-                else if(str[turn].equals("raise")){
-                    if(turn == 1){turn = 0;}
-                    else{turn = 1;}
-                    System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                    str[turn] = scnr.next();
-                    if(str[turn].equals("fold")){
-                        players.remove(turn);
-                    }
-                    else if(str[turn].equals("raise")){
-                        if(turn == 1){turn = 0;}
-                        else{turn = 1;}
-                        System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                        str[turn] = scnr.next();
-                        if(str[turn].equals("fold")){
-                            players.remove(turn);
-                        }
-                    }
-                }
-            }
-        }
-
-        else{
-            if(turn == 1){turn = 0;}
-            else{turn = 1;}
-            System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-            str[turn] = scnr.next();
-            if(str[turn].equals("fold")){
-                players.remove(turn);
-            }
-            else if(str[turn].equals("raise")){
-                if(turn == 1){turn = 0;}
-                else{turn = 1;}
-                System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                str[turn] = scnr.next();
-                if(str[turn].equals("fold")){
-                    players.remove(turn);
-                }
-                else if(str[turn].equals("raise")){
-                    if(turn == 1){turn = 0;}
-                    else{turn = 1;}
-                    System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                    str[turn] = scnr.next();
-                    if(str[turn].equals("fold")){
-                        players.remove(turn);
-                    }
-                    // else if(str[turn].equals("raise")){
-                    //     if(turn == 1){turn = 0;}
-                    //     else{turn = 1;}
-                    //     System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                    //     str[turn] = scnr.next();
-                    //     if(str[turn].equals("fold")){
-                    //         players.remove(turn);
-                    //     }
-                    // }
-                }
-            }
-        }
-
-
-        return players;
-
+        registerReceiver(new WiFiDirectBroadcastReceiver(wifiP2pManager, channel, this), intentFilter);
     }
 
- */
+    // Method to unregister the Wi-Fi P2P broadcast receiver
+    private void unregisterReceiver() {
+        unregisterReceiver(new WiFiDirectBroadcastReceiver(wifiP2pManager, channel, this));
+    }
+
+
+    // Override onResume and onPause to register and unregister the Wi-Fi P2P broadcast receiver
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(); // Implement this method to register the Wi-Fi P2P broadcast receiver
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(); // Implement this method to unregister the Wi-Fi P2P broadcast receiver
+    }
+
+    private void connectToPeer(WifiP2pDevice device) {
+
+        if (wifiP2pManager != null && channel != null) {
+            WifiP2pConfig config = new WifiP2pConfig();
+            config.deviceAddress = device.deviceAddress;
+
+            wifiP2pManager.connect(channel, config, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(getApplicationContext(), "Connected to " + device.deviceName, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(int reason) {
+                    Toast.makeText(getApplicationContext(), "Connection failed. Reason: " + reason, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Handle the case where wifiP2pManager or channel is null
+            Toast.makeText(getApplicationContext(), "Wi-Fi P2P not initialized", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void startDiscovery() {
+        wifiP2pManager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                // Discovery started successfully
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                // Discovery failed
+            }
+        });
+    }
+
+
+
+    public static class CommunicationManager {
+        private static List<PeerConnectionListener> listeners = new ArrayList<>();
+
+        // Interface to listen for connection events
+        public interface PeerConnectionListener {
+            void onConnectionEstablished();
+        }
+
+        // Register a listener for connection events
+        public static void registerListener(PeerConnectionListener listener) {
+            if (!listeners.contains(listener)) {
+                listeners.add(listener);
+            }
+        }
+
+        // Unregister a listener for connection events
+        public static void unregisterListener(PeerConnectionListener listener) {
+            listeners.remove(listener);
+        }
+
+        // Notify all registered listeners that the connection is established
+        public static void notifyConnectionEstablished() {
+            for (PeerConnectionListener listener : listeners) {
+                listener.onConnectionEstablished();
+            }
+        }
+
+
+        public static void sendSignalToStartGame() {
+            // Add the actual implementation to send the signal
+            // For example, call a method in your network communication class.
+        }
+    }
+
+    public static class NetworkCommunication {
+
+        // This method represents the actual logic to send a signal to start the game
+        public static void sendStartGameSignal() {
+            // Add your implementation here.
+            // For now, let's print a message to simulate sending the signal.
+            System.out.println("Signal to start the game sent!");
+        }
+    }
+
+
+    public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
+
+        private WifiP2pManager manager;
+        private Channel channel;
+        private TableActivity activity;
+
+        public WiFiDirectBroadcastReceiver(WifiP2pManager manager, Channel channel, TableActivity activity) {
+            super();
+            this.manager = manager;
+            this.channel = channel;
+            this.activity = activity;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)) {
+                // Handle Wi-Fi P2P state changes
+                int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
+                if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
+                    // Wi-Fi P2P is enabled
+                } else {
+                    // Wi-Fi P2P is disabled
+                }
+            } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
+                // Handle available peers changes
+                if (manager != null) {
+                    manager.requestPeers(channel, activity.peerListListener);
+                }
+            } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
+                // Handle Wi-Fi P2P connection changes
+                if (manager == null) {
+                    return;
+                }
+
+                NetworkInfo networkInfo = intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+
+                if (networkInfo.isConnected()) {
+                    // Connected to a peer
+                } else {
+                    // Disconnected from the peer
+                }
+            } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
+                // Handle this device's details changes
+                // You can get information about this device, such as device name, address, etc.
+            }
+        }
+    }
 
     public static int playerTurn(List<Player> players, int round){
         List<Integer> cardRanks = new ArrayList<>();
