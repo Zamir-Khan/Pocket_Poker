@@ -27,7 +27,7 @@ public class TableActivity extends AppCompatActivity {
         deck.shuffle();
 
         List<Player> players = new ArrayList<>();
-        for(int i = 1; i < 3; i++){
+        for(int i = 1; i < 5; i++){
             String str = Integer.toString(i);
             players.add(new Player("Player_" + str));
         }
@@ -41,11 +41,17 @@ public class TableActivity extends AppCompatActivity {
 
         TextView P1Hand = findViewById(R.id.P1Hand);    // Display player 1 hand
         TextView P2Hand = findViewById(R.id.P2Hand);    // Display player 2 hand
+        TextView P3Hand = findViewById(R.id.P3Hand);    // Display player 3 hand
+        TextView P4Hand = findViewById(R.id.P4Hand);    // Display player 4 hand
         TextView test = findViewById(R.id.Test);
         TextView P1Name = findViewById(R.id.PlayerName1);
         TextView P2Name = findViewById(R.id.PlayerName2);
+        TextView P3Name = findViewById(R.id.PlayerName3);
+        TextView P4Name = findViewById(R.id.PlayerName4);
         P1Name.setText(players.get(0).getName());
         P2Name.setText(players.get(1).getName());
+        P3Name.setText(players.get(2).getName());
+        P4Name.setText(players.get(3).getName());
 
         ImageView p1c1 = findViewById(R.id.p1card1);
         ImageView p1c2 = findViewById(R.id.p1card2);
@@ -59,8 +65,22 @@ public class TableActivity extends AppCompatActivity {
         ImageView p2c4 = findViewById(R.id.p2card4);
         ImageView p2c5 = findViewById(R.id.p2card5);
 
+        ImageView p3c1 = findViewById(R.id.p3card1);
+        ImageView p3c2 = findViewById(R.id.p3card2);
+        ImageView p3c3 = findViewById(R.id.p3card3);
+        ImageView p3c4 = findViewById(R.id.p3card4);
+        ImageView p3c5 = findViewById(R.id.p3card5);
+
+        ImageView p4c1 = findViewById(R.id.p4card1);
+        ImageView p4c2 = findViewById(R.id.p4card2);
+        ImageView p4c3 = findViewById(R.id.p4card3);
+        ImageView p4c4 = findViewById(R.id.p4card4);
+        ImageView p4c5 = findViewById(R.id.p4card5);
+
         Drawable[] P1card = new Drawable[5];
         Drawable[] P2card = new Drawable[5];
+        Drawable[] P3card = new Drawable[5];
+        Drawable[] P4card = new Drawable[5];
 
         // **** Action for Call button
         // (currently serving as debugger for Players)
@@ -75,9 +95,13 @@ public class TableActivity extends AppCompatActivity {
 
                     Card dealtCard1 = deck.dealCard();
                     Card dealtCard2 = deck.dealCard();
+                    Card dealtCard3 = deck.dealCard();
+                    Card dealtCard4 = deck.dealCard();
 
                     players.get(0).addCard(dealtCard1);
                     players.get(1).addCard(dealtCard2);
+                    players.get(2).addCard(dealtCard3);
+                    players.get(3).addCard(dealtCard4);
 
                     String cardname1 = dealtCard1.toString();
                     int resourceID1 = getResources().getIdentifier(cardname1, "drawable", getPackageName());
@@ -85,60 +109,96 @@ public class TableActivity extends AppCompatActivity {
                     String cardname2 = dealtCard2.toString();
                     int resourceID2 = getResources().getIdentifier(cardname2, "drawable", getPackageName());
 
-                    if (resourceID1 != 0 && resourceID2 != 0) {
+                    String cardname3 = dealtCard3.toString();
+                    int resourceID3 = getResources().getIdentifier(cardname3, "drawable", getPackageName());
+
+                    String cardname4 = dealtCard4.toString();
+                    int resourceID4 = getResources().getIdentifier(cardname4, "drawable", getPackageName());
+
+                    if (resourceID1 != 0 && resourceID2 != 0 && resourceID3 != 0 && resourceID4 != 0) {
                         switch (round) {
                             case 0:
                                 // Deal the face down card
                                 P1card[0] = getResources().getDrawable(resourceID1);
                                 P2card[0] = getResources().getDrawable(resourceID2);
-                                //p1c1.setImageDrawable(P1card[0]);
-                                //p2c1.setImageDrawable(P2card[0]);
+                                P3card[0] = getResources().getDrawable(resourceID3);
+                                P4card[0] = getResources().getDrawable(resourceID4);
                                 p1c1.setImageDrawable(getDrawable(R.drawable.card_back));
                                 p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                                p3c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                                p4c1.setImageDrawable(getDrawable(R.drawable.card_back));
                                 // ------------------------------------------------------
 
                                 // Deal the second card (face up)
+                                deck.shuffle();
                                 dealtCard1 = deck.dealCard();
                                 dealtCard2 = deck.dealCard();
+                                dealtCard3 = deck.dealCard();
+                                dealtCard4 = deck.dealCard();
                                 players.get(0).addCard(dealtCard1);
                                 players.get(1).addCard(dealtCard2);
+                                players.get(2).addCard(dealtCard3);
+                                players.get(3).addCard(dealtCard4);
 
                                 cardname1 = dealtCard1.toString();
                                 resourceID1 = getResources().getIdentifier(cardname1, "drawable", getPackageName());
                                 cardname2 = dealtCard2.toString();
                                 resourceID2 = getResources().getIdentifier(cardname2, "drawable", getPackageName());
+                                cardname3 = dealtCard3.toString();
+                                resourceID3 = getResources().getIdentifier(cardname3, "drawable", getPackageName());
+                                cardname4 = dealtCard4.toString();
+                                resourceID4 = getResources().getIdentifier(cardname4, "drawable", getPackageName());
 
                                 P1card[1] = getResources().getDrawable(resourceID1);
                                 P2card[1] = getResources().getDrawable(resourceID2);
+                                P3card[1] = getResources().getDrawable(resourceID3);
+                                P4card[1] = getResources().getDrawable(resourceID4);
                                 p1c2.setImageDrawable(P1card[1]);
                                 p2c2.setImageDrawable(P2card[1]);
+                                p3c2.setImageDrawable(P3card[1]);
+                                p4c2.setImageDrawable(P4card[1]);
 
                                 round++;
                                 break;
                             case 2:
                                 P1card[2] = getResources().getDrawable(resourceID1);
                                 P2card[2] = getResources().getDrawable(resourceID2);
+                                P3card[2] = getResources().getDrawable(resourceID3);
+                                P4card[2] = getResources().getDrawable(resourceID4);
                                 p1c3.setImageDrawable(P1card[2]);
                                 p2c3.setImageDrawable(P2card[2]);
+                                p3c3.setImageDrawable(P3card[2]);
+                                p4c3.setImageDrawable(P4card[2]);
                                 break;
                             case 3:
                                 P1card[3] = getResources().getDrawable(resourceID1);
                                 P2card[3] = getResources().getDrawable(resourceID2);
+                                P3card[3] = getResources().getDrawable(resourceID3);
+                                P4card[3] = getResources().getDrawable(resourceID4);
                                 p1c4.setImageDrawable(P1card[3]);
                                 p2c4.setImageDrawable(P2card[3]);
+                                p3c4.setImageDrawable(P3card[3]);
+                                p4c4.setImageDrawable(P4card[3]);
                                 break;
                             case 4:
                                 P1card[4] = getResources().getDrawable(resourceID1);
                                 P2card[4] = getResources().getDrawable(resourceID2);
+                                P3card[4] = getResources().getDrawable(resourceID3);
+                                P4card[4] = getResources().getDrawable(resourceID4);
                                 p1c5.setImageDrawable(P1card[4]);
                                 p2c5.setImageDrawable(P2card[4]);
+                                p3c5.setImageDrawable(P3card[4]);
+                                p4c5.setImageDrawable(P4card[4]);
                                 break;
                         }
                     }
 
-                    P1Hand.setText(players.get(0).toString());     // Displaying Player hand
-                    P2Hand.setText(players.get(1).toString());
-                    //int turn = playerTurn(players, round);
+                    //P1Hand.setText(players.get(0).toString());     // Displaying Player hand
+                    //P2Hand.setText(players.get(1).toString());
+                    //P3Hand.setText(players.get(2).toString());
+                    //P4Hand.setText(players.get(3).toString());
+
+                     //int turn = playerTurn(players, round);
                     test.setText("Turn for: " + players.get(playerTurn(players, round)).getName());
                     round ++;
                 }
@@ -154,6 +214,12 @@ public class TableActivity extends AppCompatActivity {
         raiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                p1c1.setImageDrawable(P1card[0]);
+                p2c1.setImageDrawable(P2card[0]);
+                p3c1.setImageDrawable(P3card[0]);
+                p4c1.setImageDrawable(P4card[0]);
+
                 if(condition){
                     List<Player> winners = getWinner(players);
                     StringBuilder strBuild = new StringBuilder("Winners: \n");
@@ -177,8 +243,10 @@ public class TableActivity extends AppCompatActivity {
                     players.remove(i);
                 }
 
-                P1Hand.setText("");
-                P2Hand.setText("");
+                //P1Hand.setText("");
+                //P2Hand.setText("");
+                //P3Hand.setText("");
+                //P4Hand.setText("");
                 test.setText("Fold Action");
 
                 p1c1.setImageDrawable(getDrawable(R.drawable.card_back));
@@ -187,11 +255,11 @@ public class TableActivity extends AppCompatActivity {
                 p1c4.setImageDrawable(getDrawable(R.drawable.card_back));
                 p1c5.setImageDrawable(getDrawable(R.drawable.card_back));
 
-                p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                /*p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
                 p2c2.setImageDrawable(getDrawable(R.drawable.card_back));
                 p2c3.setImageDrawable(getDrawable(R.drawable.card_back));
                 p2c4.setImageDrawable(getDrawable(R.drawable.card_back));
-                p2c5.setImageDrawable(getDrawable(R.drawable.card_back));
+                p2c5.setImageDrawable(getDrawable(R.drawable.card_back));*/
             }
         });
     }
