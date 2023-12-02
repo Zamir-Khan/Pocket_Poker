@@ -3,12 +3,10 @@ package UTD.cs.edu.pocket_poker;
 
 import static android.content.ContentValues.TAG;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -30,16 +28,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import utd.cs.edu.pokect_poker.R;
@@ -72,6 +75,9 @@ public class HostActivity extends AppCompatActivity {
 
     Sendrecieve sendrecieve;
 
+    private boolean isPlayersConnected = false;
+
+    private int connectedPlayerCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,13 +125,34 @@ public class HostActivity extends AppCompatActivity {
             switch (msg.what) {
                 case MESSAGE_READ:
                     byte[] readBuff = (byte[]) msg.obj;
-                    String tempMsg = new String(readBuff, 0, msg.arg1);
-                    read_msg_box.setText(tempMsg);
+                    int length = msg.arg1;
+
+                    // Trim the array to the actual length of data
+                    byte[] trimmedData = Arrays.copyOf(readBuff, length);
+
+                    // Deserialize the GameState
+                    GameState receivedState = deserializeGameState(trimmedData);
+
+                    // Handle the received GameState as needed
+                    // For example, update the UI or game state
+
                     break;
             }
             return true;
         }
     });
+
+    // Method to deserialize bytes into a GameState object
+    private GameState deserializeGameState(byte[] data) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+             ObjectInput in = new ObjectInputStream(bis)) {
+            return (GameState) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     /*
     This works only somewhat, does not work on phone emulator but does work on my mobile device
@@ -241,18 +268,16 @@ public class HostActivity extends AppCompatActivity {
     WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
         @Override
         public void onPeersAvailable(WifiP2pDeviceList peerList) {
-            if(!peerList.getDeviceList().equals(peers))
-            {
+            if (!peerList.getDeviceList().equals(peers)) {
                 peers.clear();
                 peers.addAll(peerList.getDeviceList());
 
-                deviceNameArray = new String [peerList.getDeviceList().size()];
-                deviceArray= new WifiP2pDevice[peerList.getDeviceList().size()];
+                deviceNameArray = new String[peerList.getDeviceList().size()];
+                deviceArray = new WifiP2pDevice[peerList.getDeviceList().size()];
                 int index = 0;
 
-                for (WifiP2pDevice device : peerList.getDeviceList())
-                {
-                    deviceNameArray[index]= device.deviceName;
+                for (WifiP2pDevice device : peerList.getDeviceList()) {
+                    deviceNameArray[index] = device.deviceName;
                     deviceArray[index] = device;
                     index++;
                 }
@@ -260,8 +285,7 @@ public class HostActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, deviceNameArray);
                 listView.setAdapter(adapter);
             }
-            if(peers.size()== 0)
-            {
+            if (peers.size() == 0) {
                 Toast.makeText(getApplicationContext(), "No Device Found", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -277,19 +301,49 @@ public class HostActivity extends AppCompatActivity {
 
             final InetAddress groupOwnerAddress = wifiP2pInfo.groupOwnerAddress;
 
-            if (wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner)
-            {
+            if (wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner) {
                 connectionStatus.setText("Host");
                 serverClass = new ServerClass();
                 serverClass.start();
-            }else if (wifiP2pInfo.groupFormed)
-            {
+
+                //connectedPlayerCount++;
+            } else if (wifiP2pInfo.groupFormed) {
                 connectionStatus.setText("Client");
                 clientClass = new ClientClass(groupOwnerAddress);
                 clientClass.start();
+
+                //connectedPlayerCount++;
+            }
+
+            if (connectedPlayerCount == 0) {
+                // If both players are connected, call onPlayerConnected
+                onPlayerConnected();
             }
         }
     };
+
+    public void onPlayerConnected() {
+        // Update the connection status
+        isPlayersConnected = true;
+
+        // Check if both players are now connected
+        if (isPlayersConnected) {
+            // If both players are connected, initiate the transition to TableActivity
+            startTableActivity();
+        }
+    }
+
+    // Method to start TableActivity
+    private void startTableActivity() {
+        // Create an Intent to start the TableActivity
+        Intent intent = new Intent(HostActivity.this, TableActivity.class);
+
+
+        // Start the TableActivity
+        startActivity(intent);
+
+
+    }
 
     @Override
     protected void onResume() {
@@ -304,8 +358,7 @@ public class HostActivity extends AppCompatActivity {
     }
 
 
-
-    public class ServerClass extends  Thread{
+    public class ServerClass extends Thread {
         Socket socket;
         ServerSocket serverSocket;
 
@@ -314,25 +367,90 @@ public class HostActivity extends AppCompatActivity {
             try {
                 serverSocket = new ServerSocket(8888);
                 socket = serverSocket.accept();
-                sendrecieve =  new Sendrecieve(socket);
+                sendrecieve = new Sendrecieve(socket);
                 sendrecieve.start();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
         }
+
+        public void write(byte[] serializedState) {
+            sendrecieve.write(serializedState);
+        }
+
+
+        // Method to send the game state
+        public void sendGameState(GameState gameState) {
+            byte[] serializedState = serializeGameState(gameState);
+            write(serializedState);
+        }
+
+        // Method to serialize the game state object into bytes
+        private byte[] serializeGameState(GameState gameState) {
+            try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                 ObjectOutputStream out = new ObjectOutputStream(bos)) {
+                out.writeObject(gameState);
+                return bos.toByteArray();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Method to deserialize bytes into a GameState object
+        private GameState deserializeGameState(byte[] data) {
+
+            try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+                 ObjectInput in = new ObjectInputStream(bis)) {
+                return (GameState) in.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
-    private class Sendrecieve extends  Thread{
+
+    private class Sendrecieve extends Thread {
 
         //these were quick fixes, originally did not have "final" on them
-        private final Socket  socket;
+        private final Socket socket;
         private final InputStream inputStream;
         private final OutputStream outputStream;
 
+        // Method to send the game state
+        public void sendGameState(GameState gameState) {
+            byte[] serializedState = serializeGameState(gameState);
+            write(serializedState);
+        }
 
-        public Sendrecieve(Socket skt)
-        {
-            socket=skt ;
+        // Method to serialize the game state object into bytes
+        private byte[] serializeGameState(GameState gameState) {
+            try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                 ObjectOutputStream out = new ObjectOutputStream(bos)) {
+                out.writeObject(gameState);
+                return bos.toByteArray();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Method to deserialize bytes into a GameState object
+        private GameState deserializeGameState(byte[] data, int length) {
+            byte[] trimmedData = Arrays.copyOf(data, length);
+            return deserializeGameState(trimmedData);
+        }
+
+        private GameState deserializeGameState(byte[] data) {
+            try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+                 ObjectInput in = new ObjectInputStream(bis)) {
+                return (GameState) in.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        public Sendrecieve(Socket skt) {
+            socket = skt;
             try {
                 inputStream = socket.getInputStream();
                 outputStream = socket.getOutputStream();
@@ -343,16 +461,14 @@ public class HostActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            byte [] buffer = new byte[1024];
-            int bytes ;
+            byte[] buffer = new byte[1024];
+            int bytes;
 
-            while (socket != null)
-            {
+            while (socket != null) {
                 try {
-                    bytes  = inputStream.read(buffer);
-                    if (bytes > 0 )
-                    {
-                        handler.obtainMessage(MESSAGE_READ, bytes, -1 , buffer).sendToTarget();
+                    bytes = inputStream.read(buffer);
+                    if (bytes > 0) {
+                        handler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
 
                     }
                 } catch (IOException e) {
@@ -361,8 +477,7 @@ public class HostActivity extends AppCompatActivity {
             }
         }
 
-        public void write (byte [] bytes )
-        {
+        public void write(byte[] bytes) {
             try {
                 outputStream.write(bytes);
             } catch (IOException e) {
@@ -371,18 +486,17 @@ public class HostActivity extends AppCompatActivity {
         }
     }
 
-    public class ClientClass extends Thread{
+    public class ClientClass extends Thread {
         Socket socket;
         String hostAdd;
 
 
-
-        public ClientClass (InetAddress hostAddress)
-        {
+        public ClientClass(InetAddress hostAddress) {
             hostAdd = hostAddress.getHostAddress();
             socket = new Socket();
 
         }
+
         @Override
         public void run() {
             try {
