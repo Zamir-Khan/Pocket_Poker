@@ -7,15 +7,15 @@ import java.util.List;
 public class Player {
     //*********** By Zamir Khan **********
     // 10/9/23
-    private List<Card> hand;
-    private int currentBet;
-    private String name;
+    private List<Card> hand;    // Player hand
+    private int currentBet;     // Player bet
+    private String name;        // Player name
 
     // Constructor
-    public Player(String n){
+    public Player(String n, int bet){
         name = n;
         hand = new ArrayList<>();
-        currentBet = 0;
+        currentBet = bet;
     }
 
     // Add a card to player's hand
@@ -28,28 +28,23 @@ public class Player {
         currentBet = bet;
     }
 
+    // Get player bet
+    public int getCurrentBet(){return currentBet;}
     // Get player Hand
     public List<Card> getHand() {
         return hand;
     }
+
+    // Get player name
     public String getName(){ return name;}
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        //stringBuilder.append(name + " Hand: \n");
-
         for (Card card : hand) {
             stringBuilder.append(card.getRank()).append("_").append(card.getSuit()).append("\n");
         }
-
-        // Remove the trailing ", "
-        //if (stringBuilder.length() > 0) {
-        //    stringBuilder.setLength(stringBuilder.length() - 2);
-        //}
-
         return stringBuilder.toString();
     }
-
     // End
     // ************************************
 }

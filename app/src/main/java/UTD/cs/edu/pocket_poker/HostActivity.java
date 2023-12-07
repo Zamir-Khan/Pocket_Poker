@@ -176,8 +176,6 @@ public class HostActivity extends AppCompatActivity {
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -305,6 +303,8 @@ public class HostActivity extends AppCompatActivity {
 
 
 
+    //Server Class
+
     public class ServerClass extends  Thread{
         Socket socket;
         ServerSocket serverSocket;
@@ -322,6 +322,8 @@ public class HostActivity extends AppCompatActivity {
 
         }
     }
+
+
     private class Sendrecieve extends  Thread{
 
         //these were quick fixes, originally did not have "final" on them

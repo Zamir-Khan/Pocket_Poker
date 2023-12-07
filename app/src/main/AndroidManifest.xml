@@ -50,7 +50,7 @@
 
         <activity
             android:name="UTD.cs.edu.pocket_poker.InstructionsActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="landscape"/>
 
         <activity
