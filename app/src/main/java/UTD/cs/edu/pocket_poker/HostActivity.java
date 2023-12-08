@@ -86,6 +86,8 @@ public class HostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_host);
 
         /* Shafaq and Sidra */
+
+        //navigate to Table Activity
         Button HostStartButton;
         HostStartButton = findViewById(R.id.HostStartButton);
         HostStartButton.setOnClickListener(new View.OnClickListener() {
