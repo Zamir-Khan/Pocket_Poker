@@ -26,78 +26,26 @@
         app:layout_constraintVertical_bias="0.207" />
 
     <Button
-        android:id="@+id/LostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#818589"
-        android:text="Lost"
-        app:layout_constraintStart_toStartOf="@+id/TableButton"
-        app:layout_constraintTop_toBottomOf="@+id/TableButton" />
-
-    <Button
-        android:id="@+id/TableButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="72dp"
-        android:backgroundTint="#818589"
-        android:text="Table"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/ExitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#818589"
-        android:text="Exit"
-        app:layout_constraintStart_toStartOf="@+id/WinButton"
-        app:layout_constraintTop_toBottomOf="@+id/WinButton" />
-
-    <Button
-        android:id="@+id/WinButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#818589"
-        android:text="Win"
-        app:layout_constraintStart_toStartOf="@+id/LostButton"
-        app:layout_constraintTop_toBottomOf="@+id/LostButton" />
-
-    <Button
         android:id="@+id/HostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginStart="180dp"
         android:backgroundTint="#818589"
         android:text="Host Game"
-        app:layout_constraintStart_toEndOf="@+id/ExitButton"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+        app:layout_constraintBottom_toBottomOf="@+id/HowToPlayButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/HowToPlayButton" />
 
     <Button
         android:id="@+id/HowToPlayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
         android:layout_marginEnd="181dp"
+        android:layout_marginBottom="99dp"
         android:backgroundTint="#818589"
         android:text="How To Play"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
-        android:layout_width="2in"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:hint="Enter your name here"
-        android:textColorHint="#818589"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/LogoImage"

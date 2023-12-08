@@ -30,47 +30,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button TableButton;
 
-        TableButton = findViewById(R.id.TableButton);
 
-        TableButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iTableNext;
-
-                iTableNext = new Intent(MainActivity.this, TableActivity.class);
-                startActivity(iTableNext);
-            }
-        });
-
-        Button WinButton;
-
-        WinButton = findViewById(R.id.WinButton);
-
-        WinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iWinNext;
-
-                iWinNext = new Intent(MainActivity.this, WinActivity.class);
-                startActivity(iWinNext);
-            }
-        });
-
-        Button LostButton;
-
-        LostButton = findViewById(R.id.LostButton);
-
-        LostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iLostNext;
-
-                iLostNext = new Intent(MainActivity.this, LostActivity.class);
-                startActivity(iLostNext);
-            }
-        });
 
         Button HowToPlayButton;
 
@@ -83,16 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
                 iHowToPlayNext = new Intent(MainActivity.this, InstructionsActivity.class);
                 startActivity(iHowToPlayNext);
-            }
-        });
-
-        Button exitButton = findViewById(R.id.ExitButton);
-
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish(); // To exit the app
             }
         });
 
