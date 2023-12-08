@@ -11,7 +11,7 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
 import android.widget.Toast;
-
+// **** By Joshua Ortiz **** //
 public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
     private WifiP2pManager mManager;
@@ -59,7 +59,6 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
 
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
-            //do something
 
         }
 

@@ -72,7 +72,7 @@ public class HostActivity extends AppCompatActivity {
 
     Sendrecieve sendrecieve;
 
-
+    // **** By Joshua Ortiz **** //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -129,18 +129,7 @@ public class HostActivity extends AppCompatActivity {
         }
     });
 
-    /*
-    This works only somewhat, does not work on phone emulator but does work on my mobile device
-         I think because they changed/updated something after api 28 the .setWifiEnabled does not
-         work properly. You also have to manually toggle to wifi on and off for this reason
-         If wifi is on, then it will display "wifi is on"
-         otherwise it will display "wifi is off" \
-     */
 
-    /*
-    Technically this class is not really necessary but still wanted to try it out
-
-     */
 
     private void exqListener() {
 
@@ -328,7 +317,6 @@ public class HostActivity extends AppCompatActivity {
 
     private class Sendrecieve extends  Thread{
 
-        //these were quick fixes, originally did not have "final" on them
         private final Socket  socket;
         private final InputStream inputStream;
         private final OutputStream outputStream;
