@@ -1,9 +1,12 @@
+// ****** Pocket Poker ******* //
+// ****** GAME ACTIVITY ****** //
 package UTD.cs.edu.pocket_poker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,8 +18,11 @@ import java.util.List;
 
 import utd.cs.edu.pokect_poker.R;
 
+// **** By Zamir Khan and Tahmidul Karim **** //
 public class TableActivity extends AppCompatActivity {
     boolean condition = false;
+    final int bet = 25;
+    int curBet = bet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,25 +33,29 @@ public class TableActivity extends AppCompatActivity {
         deck.shuffle();
 
         List<Player> players = new ArrayList<>();
-        for(int i = 1; i < 3; i++){
+        for(int i = 1; i < 5; i++){
             String str = Integer.toString(i);
-            players.add(new Player("Player_" + str));
+            players.add(new Player("Player " + str, bet));
         }
-
-        // ****************************************************
 
         // **** View instances to manipulate gameplay
         Button callButton = findViewById(R.id.callBtn);
         Button raiseButton = findViewById(R.id.raiseBtn);
         Button foldButton = findViewById(R.id.foldBtn);
 
-        TextView P1Hand = findViewById(R.id.P1Hand);    // Display player 1 hand
-        TextView P2Hand = findViewById(R.id.P2Hand);    // Display player 2 hand
         TextView test = findViewById(R.id.Test);
+        TextView Ptimer = findViewById(R.id.PlayerTimer);
+        TextView Stake = findViewById(R.id.TotalStake);
+        TextView CurrentBet = findViewById(R.id.CurBet);
+
         TextView P1Name = findViewById(R.id.PlayerName1);
         TextView P2Name = findViewById(R.id.PlayerName2);
+        TextView P3Name = findViewById(R.id.PlayerName3);
+        TextView P4Name = findViewById(R.id.PlayerName4);
         P1Name.setText(players.get(0).getName());
         P2Name.setText(players.get(1).getName());
+        P3Name.setText(players.get(2).getName());
+        P4Name.setText(players.get(3).getName());
 
         ImageView p1c1 = findViewById(R.id.p1card1);
         ImageView p1c2 = findViewById(R.id.p1card2);
@@ -59,25 +69,67 @@ public class TableActivity extends AppCompatActivity {
         ImageView p2c4 = findViewById(R.id.p2card4);
         ImageView p2c5 = findViewById(R.id.p2card5);
 
+        ImageView p3c1 = findViewById(R.id.p3card1);
+        ImageView p3c2 = findViewById(R.id.p3card2);
+        ImageView p3c3 = findViewById(R.id.p3card3);
+        ImageView p3c4 = findViewById(R.id.p3card4);
+        ImageView p3c5 = findViewById(R.id.p3card5);
+
+        ImageView p4c1 = findViewById(R.id.p4card1);
+        ImageView p4c2 = findViewById(R.id.p4card2);
+        ImageView p4c3 = findViewById(R.id.p4card3);
+        ImageView p4c4 = findViewById(R.id.p4card4);
+        ImageView p4c5 = findViewById(R.id.p4card5);
+
         Drawable[] P1card = new Drawable[5];
         Drawable[] P2card = new Drawable[5];
+        Drawable[] P3card = new Drawable[5];
+        Drawable[] P4card = new Drawable[5];
 
-        // **** Action for Call button
+        // Timer for players
+        CountDownTimer timer = new CountDownTimer(5000,1000) {
+            int count = 1;
+            @Override
+            public void onTick(long l) {
+                long secondsRemaining = l / 1000;
+                Ptimer.setText("Time Remaining: "+secondsRemaining);
+            }
+
+            @Override
+            public void onFinish() {
+
+                Ptimer.setText("Time Up!");
+                if (count < 6){
+                    callButton.performClick();
+                }
+                else
+                    raiseButton.performClick();
+            }
+        };
+
+        // **** Action for Call button *****
         // (currently serving as debugger for Players)
         callButton.setOnClickListener(new View.OnClickListener() {
             int round = 0;
             @Override
             public void onClick(View view) {
                 if (round < 5) {
+                    timer.start();
+                    CurrentBet.setText("Current Bet: "+ curBet);
+                    Stake.setText("Total Stake: "+ (curBet * players.size()));
 
                     // Shuffle between each round
                     deck.shuffle();
 
                     Card dealtCard1 = deck.dealCard();
                     Card dealtCard2 = deck.dealCard();
+                    Card dealtCard3 = deck.dealCard();
+                    Card dealtCard4 = deck.dealCard();
 
                     players.get(0).addCard(dealtCard1);
                     players.get(1).addCard(dealtCard2);
+                    players.get(2).addCard(dealtCard3);
+                    players.get(3).addCard(dealtCard4);
 
                     String cardname1 = dealtCard1.toString();
                     int resourceID1 = getResources().getIdentifier(cardname1, "drawable", getPackageName());
@@ -85,61 +137,93 @@ public class TableActivity extends AppCompatActivity {
                     String cardname2 = dealtCard2.toString();
                     int resourceID2 = getResources().getIdentifier(cardname2, "drawable", getPackageName());
 
-                    if (resourceID1 != 0 && resourceID2 != 0) {
+                    String cardname3 = dealtCard3.toString();
+                    int resourceID3 = getResources().getIdentifier(cardname3, "drawable", getPackageName());
+
+                    String cardname4 = dealtCard4.toString();
+                    int resourceID4 = getResources().getIdentifier(cardname4, "drawable", getPackageName());
+
+                    // Displaying proper cards
+                    if (resourceID1 != 0 && resourceID2 != 0 && resourceID3 != 0 && resourceID4 != 0) {
                         switch (round) {
                             case 0:
                                 // Deal the face down card
                                 P1card[0] = getResources().getDrawable(resourceID1);
                                 P2card[0] = getResources().getDrawable(resourceID2);
-                                //p1c1.setImageDrawable(P1card[0]);
-                                //p2c1.setImageDrawable(P2card[0]);
+                                P3card[0] = getResources().getDrawable(resourceID3);
+                                P4card[0] = getResources().getDrawable(resourceID4);
                                 p1c1.setImageDrawable(getDrawable(R.drawable.card_back));
                                 p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                                p3c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                                p4c1.setImageDrawable(getDrawable(R.drawable.card_back));
                                 // ------------------------------------------------------
 
                                 // Deal the second card (face up)
+                                deck.shuffle();
                                 dealtCard1 = deck.dealCard();
                                 dealtCard2 = deck.dealCard();
+                                dealtCard3 = deck.dealCard();
+                                dealtCard4 = deck.dealCard();
                                 players.get(0).addCard(dealtCard1);
                                 players.get(1).addCard(dealtCard2);
+                                players.get(2).addCard(dealtCard3);
+                                players.get(3).addCard(dealtCard4);
 
                                 cardname1 = dealtCard1.toString();
                                 resourceID1 = getResources().getIdentifier(cardname1, "drawable", getPackageName());
                                 cardname2 = dealtCard2.toString();
                                 resourceID2 = getResources().getIdentifier(cardname2, "drawable", getPackageName());
+                                cardname3 = dealtCard3.toString();
+                                resourceID3 = getResources().getIdentifier(cardname3, "drawable", getPackageName());
+                                cardname4 = dealtCard4.toString();
+                                resourceID4 = getResources().getIdentifier(cardname4, "drawable", getPackageName());
 
                                 P1card[1] = getResources().getDrawable(resourceID1);
                                 P2card[1] = getResources().getDrawable(resourceID2);
+                                P3card[1] = getResources().getDrawable(resourceID3);
+                                P4card[1] = getResources().getDrawable(resourceID4);
                                 p1c2.setImageDrawable(P1card[1]);
                                 p2c2.setImageDrawable(P2card[1]);
+                                p3c2.setImageDrawable(P3card[1]);
+                                p4c2.setImageDrawable(P4card[1]);
 
                                 round++;
                                 break;
                             case 2:
                                 P1card[2] = getResources().getDrawable(resourceID1);
                                 P2card[2] = getResources().getDrawable(resourceID2);
+                                P3card[2] = getResources().getDrawable(resourceID3);
+                                P4card[2] = getResources().getDrawable(resourceID4);
                                 p1c3.setImageDrawable(P1card[2]);
                                 p2c3.setImageDrawable(P2card[2]);
+                                p3c3.setImageDrawable(P3card[2]);
+                                p4c3.setImageDrawable(P4card[2]);
                                 break;
                             case 3:
                                 P1card[3] = getResources().getDrawable(resourceID1);
                                 P2card[3] = getResources().getDrawable(resourceID2);
+                                P3card[3] = getResources().getDrawable(resourceID3);
+                                P4card[3] = getResources().getDrawable(resourceID4);
                                 p1c4.setImageDrawable(P1card[3]);
                                 p2c4.setImageDrawable(P2card[3]);
+                                p3c4.setImageDrawable(P3card[3]);
+                                p4c4.setImageDrawable(P4card[3]);
                                 break;
                             case 4:
                                 P1card[4] = getResources().getDrawable(resourceID1);
                                 P2card[4] = getResources().getDrawable(resourceID2);
+                                P3card[4] = getResources().getDrawable(resourceID3);
+                                P4card[4] = getResources().getDrawable(resourceID4);
                                 p1c5.setImageDrawable(P1card[4]);
                                 p2c5.setImageDrawable(P2card[4]);
+                                p3c5.setImageDrawable(P3card[4]);
+                                p4c5.setImageDrawable(P4card[4]);
                                 break;
                         }
                     }
 
-                    P1Hand.setText(players.get(0).toString());     // Displaying Player hand
-                    P2Hand.setText(players.get(1).toString());
-                    //int turn = playerTurn(players, round);
-                    test.setText("Turn for: " + players.get(playerTurn(players, round)).getName());
+                    // Deciding player turn
+                    test.setText("Turn for " + players.get(playerTurn(players, round)).getName());
                     round ++;
                 }
                 else
@@ -150,11 +234,20 @@ public class TableActivity extends AppCompatActivity {
 
 
         // **** Action for Raise button
-        // (currently serving as debugger for Player 2)
+        // (currently serving as debugger for Final Winner)
+        // Press this at the end of round 5 for final result
         raiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(condition){
+                    timer.cancel();
+                    Ptimer.setText("");
+                    p1c1.setImageDrawable(P1card[0]);
+                    p2c1.setImageDrawable(P2card[0]);
+                    p3c1.setImageDrawable(P3card[0]);
+                    p4c1.setImageDrawable(P4card[0]);
+
                     List<Player> winners = getWinner(players);
                     StringBuilder strBuild = new StringBuilder("Winners: \n");
                     for (int i = 0; i < winners.size(); i++) {
@@ -165,132 +258,31 @@ public class TableActivity extends AppCompatActivity {
                     }
                     test.setText(strBuild.toString());
                 }
+                else{
+                    curBet += bet;
+                    callButton.performClick();
+                }
             }
         });
 
-        // **** Action for Fold button
+        // **** Action for Fold button ****
+        // Still in development phase
         foldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                for (int i=0; i<players.size();i++){
-                    players.remove(i);
-                }
-
-                P1Hand.setText("");
-                P2Hand.setText("");
-                test.setText("Fold Action");
-
-                p1c1.setImageDrawable(getDrawable(R.drawable.card_back));
-                p1c2.setImageDrawable(getDrawable(R.drawable.card_back));
-                p1c3.setImageDrawable(getDrawable(R.drawable.card_back));
-                p1c4.setImageDrawable(getDrawable(R.drawable.card_back));
-                p1c5.setImageDrawable(getDrawable(R.drawable.card_back));
-
-                p2c1.setImageDrawable(getDrawable(R.drawable.card_back));
-                p2c2.setImageDrawable(getDrawable(R.drawable.card_back));
-                p2c3.setImageDrawable(getDrawable(R.drawable.card_back));
-                p2c4.setImageDrawable(getDrawable(R.drawable.card_back));
-                p2c5.setImageDrawable(getDrawable(R.drawable.card_back));
+                // Random fold for testing
+                p3c1.setImageDrawable(getDrawable(R.drawable.card_back));
+                p3c2.setImageDrawable(getDrawable(R.drawable.card_back));
+                p3c3.setImageDrawable(getDrawable(R.drawable.card_back));
+                p3c4.setImageDrawable(getDrawable(R.drawable.card_back));
+                p3c5.setImageDrawable(getDrawable(R.drawable.card_back));
+                players.remove(2);
             }
         });
     }
 
-/*
-    // **************** SINGLE ROUND LOGICS ********************************
-    public static List<Player> settleBet(List<Player> players, int turn){
-
-        Scanner scnr = new Scanner(System.in);
-        String[] str = new String[players.size()];
-
-        System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-        str[turn] = scnr.next();
-
-        if(str[turn].equals("fold")){
-            players.remove(turn);
-        }
-
-        else if(str[turn].equals("call")){
-            if(turn == 1){turn = 0;}
-            else{turn = 1;}
-            System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-            str[turn] = scnr.next();
-            if(str[turn].equals("fold")){
-                players.remove(turn);
-            }
-            else if(str[turn].equals("raise")){
-                if(turn == 1){turn = 0;}
-                else{turn = 1;}
-                System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                str[turn] = scnr.next();
-                if(str[turn].equals("fold")){
-                    players.remove(turn);
-                }
-                else if(str[turn].equals("raise")){
-                    if(turn == 1){turn = 0;}
-                    else{turn = 1;}
-                    System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                    str[turn] = scnr.next();
-                    if(str[turn].equals("fold")){
-                        players.remove(turn);
-                    }
-                    else if(str[turn].equals("raise")){
-                        if(turn == 1){turn = 0;}
-                        else{turn = 1;}
-                        System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                        str[turn] = scnr.next();
-                        if(str[turn].equals("fold")){
-                            players.remove(turn);
-                        }
-                    }
-                }
-            }
-        }
-
-        else{
-            if(turn == 1){turn = 0;}
-            else{turn = 1;}
-            System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-            str[turn] = scnr.next();
-            if(str[turn].equals("fold")){
-                players.remove(turn);
-            }
-            else if(str[turn].equals("raise")){
-                if(turn == 1){turn = 0;}
-                else{turn = 1;}
-                System.out.print(players.get(turn).getName() + ": Call/Raise/Fold? ");
-                str[turn] = scnr.next();
-                if(str[turn].equals("fold")){
-                    players.remove(turn);
-                }
-                else if(str[turn].equals("raise")){
-                    if(turn == 1){turn = 0;}
-                    else{turn = 1;}
-                    System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                    str[turn] = scnr.next();
-                    if(str[turn].equals("fold")){
-                        players.remove(turn);
-                    }
-                    // else if(str[turn].equals("raise")){
-                    //     if(turn == 1){turn = 0;}
-                    //     else{turn = 1;}
-                    //     System.out.print(players.get(turn).getName() + ": Call/Fold? ");
-                    //     str[turn] = scnr.next();
-                    //     if(str[turn].equals("fold")){
-                    //         players.remove(turn);
-                    //     }
-                    // }
-                }
-            }
-        }
-
-
-        return players;
-
-    }
-
- */
-
+    // **** By Zamir Khan and Tahmidul Karim **** //
+    // Game logic to determine turn
     public static int playerTurn(List<Player> players, int round){
         List<Integer> cardRanks = new ArrayList<>();
         int returnVal = 0;
@@ -300,7 +292,6 @@ public class TableActivity extends AppCompatActivity {
 
         if(round == 1){
             int min = Collections.min(cardRanks);
-
             for(int i = 0; i < players.size(); i++){
                 if(players.get(i).getHand().get(players.get(i).getHand().size() - 1).getPoint() == min){
                     returnVal = i;
@@ -311,7 +302,6 @@ public class TableActivity extends AppCompatActivity {
 
         else{
             int max = Collections.max(cardRanks);
-
             for(int i = 0; i < players.size(); i++){
                 if(players.get(i).getHand().get(players.get(i).getHand().size() - 1).getPoint() == max){
                     returnVal = i;
@@ -319,13 +309,11 @@ public class TableActivity extends AppCompatActivity {
                 }
             }
         }
-
         return returnVal;
     }
 
-    // ***********************************************************************
-
-
+    // **** By Zamir Khan and Tahmidul Karim **** //
+    // Game logic to calculate card point based on hand
     public static int getResult(Player player){
         List<Card> cardList = player.getHand();
 
@@ -436,7 +424,8 @@ public class TableActivity extends AppCompatActivity {
         return 1;
     }
 
-    //Determines winner based on their hand
+    // **** By Zamir Khan and Tahmidul Karim **** //
+    // Determines winner based on their hand after last round
     public static List<Player> getWinner(List<Player> players){
         List<Integer> player_points = new ArrayList<>();
 
@@ -471,14 +460,14 @@ public class TableActivity extends AppCompatActivity {
         return winners;
     }
 
-    //Breaking ties with highest card
+    // **** By Zamir Khan and Tahmidul Karim **** //
+    // Breaking ties with highest card
     public static List<Integer> getHighestCard(List<Player> players){
         //reusable arrayList to store all the card's rank points of a single player
         List<Integer> max = new ArrayList<>();
 
         //list to store the maximum rank number of each player
         List<Integer> plMax = new ArrayList<>();
-
 
         for(int i = 0; i < players.size(); i++){
             for(int j = 0; j < 5; j++){
@@ -500,6 +489,7 @@ public class TableActivity extends AppCompatActivity {
         return indexes;
     }
 
+    // **** By Zamir Khan and Tahmidul Karim **** //
     //Getting specific names for the players' hands
     public static String getRankNames(int num){
         String str = "";
@@ -539,6 +529,7 @@ public class TableActivity extends AppCompatActivity {
         return str;
     }
 
+    // **** By Zamir Khan and Tahmidul Karim **** //
     // Standard insertion sort
     public static int[] sort(int arr[])
     {
